@@ -1,18 +1,19 @@
-﻿Public Class CoffeeOrderCalculator
+﻿Public Class Main
     Const taxratedecimal As Decimal = 0.8D
     Const capprice As Decimal = 2D
     Const expressprice As Decimal = 2.25D
     Const latteprice As Decimal = 1.75D
     Const icedprice As Decimal = 2.5D
-    Private subtotaldecimal, totaldecimal, grandtotaldecimal As Decimal
-    Private customercountinteger As Integer
+    Private subtotaldecimal, totaldecimal As Decimal
+    Friend customercountinteger As Integer
+    Friend grandtotaldecimal, averagedecimal As Decimal
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
         Me.Close()
 
     End Sub
 
-    Private Sub calcbutton_Click(sender As Object, e As EventArgs) Handles calcbutton.Click
+    Private Sub calcbutton_Click(sender As Object, e As EventArgs) Handles calcbutton.Click, CalculateSelectionToolStripMenuItem.Click
 
         Dim pricedecimal, taxdecimal, itemdecimal As Decimal
         Dim quanityinteger As Integer
@@ -45,7 +46,6 @@
 
             taxcheckbox.Enabled = False
             clearbutton.Enabled = True
-            newbutton.Enabled = True
 
         Catch ex As FormatException
             MessageBox.Show("quanity must be numeric", "Data entry error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -59,7 +59,7 @@
 
     End Sub
 
-    Private Sub clearbutton_Click(sender As Object, e As EventArgs) Handles clearbutton.Click
+    Private Sub clearbutton_Click(sender As Object, e As EventArgs) Handles clearbutton.Click, ClearItemToolStripMenuItem.Click
         capbutton.Checked = True
         amounttextbox.Clear()
         With quantextbox
@@ -70,7 +70,7 @@
 
     End Sub
 
-    Private Sub newbutton_Click(sender As Object, e As EventArgs) Handles newbutton.Click
+    Private Sub newbutton_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
         Dim returnresult As DialogResult
         Dim messagestring As String
 
@@ -87,36 +87,82 @@
                 customercountinteger += 1
                 subtotaldecimal = 0
                 totaldecimal = 0
+                averagedecimal = grandtotaldecimal / customercountinteger
             End If
             With taxcheckbox
                 .Enabled = True
                 .Checked = False
             End With
             clearbutton.Enabled = False
-            newbutton.Enabled = False
 
         End If
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        Dim averagedecimal As String
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles ReportToolStripMenuItem.Click
         Dim messagestring As String
-
+        messagestring = "No Sales Data Present"
         If totaldecimal <> 0 Then
             newbutton_Click(sender, e)
         End If
-        If customercountinteger > 0 Then
-            averagedecimal = grandtotaldecimal / customercountinteger
 
-            messagestring = "number of orders: " & customercountinteger.ToString() _
-            & Environment.NewLine & Environment.NewLine _
-            & "total sales: " & grandtotaldecimal.ToString("C") _
-            & Environment.NewLine & Environment.NewLine _
-            & "average sale: " & averagedecimal.ToString("C")
-
-            MessageBox.Show(messagestring, "coffee sales summary", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+        If grandtotaldecimal > 0 Then
+            SummaryForm.Show()
+        Else
+            MessageBox.Show(messagestring, "Invalid Entry", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
+    End Sub
+
+    Private Sub CalculateSelectionToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CalculateSelectionToolStripMenuItem.Click
+
+    End Sub
+
+    Private Function FindTax(itemdecimal As Decimal) As Decimal
+
+        FindTax = subtotaldecimal * taxratedecimal
+
+    End Function
+
+    Private Sub ExitToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ReportToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub ExitToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
+
+    End Sub
+
+    Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub ClearItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearItemToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+
+        AboutBox1.Show()
+
+       
+    End Sub
+
+    Private Sub FontToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FontToolStripMenuItem.Click
+        With FontDialog1
+            .Font = subtotaltextbox.Font
+            .ShowDialog()
+            subtotaltextbox.Font = .Font
+            taxtextbox.Font = .Font
+            totaltextbox.Font = .Font
+        End With
+    End Sub
+
+    Private Sub ColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ColorToolStripMenuItem.Click
+        With ColorDialog1
+            .Color = subtotaltextbox.ForeColor
+            .ShowDialog()
+            subtotaltextbox.ForeColor = .Color
+            taxtextbox.ForeColor = .Color
+            totaltextbox.ForeColor = .Color
+        End With
     End Sub
 End Class

@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Calhoun_M Chap 4.3 EX")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("Calhoun_M Chap 4.3 EX")> 
+<Assembly: AssemblyTitle("Calhoun_M Chap 6 HP")> 
+<Assembly: AssemblyDescription("Calculate sales for R 'n R For Reading and Refreshment")> 
+<Assembly: AssemblyCompany("R 'n R for Reading and Refreshment")> 
+<Assembly: AssemblyProduct("Calhoun_M Chap 6 HP")> 
 <Assembly: AssemblyCopyright("Copyright ©  2013")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("91c5ee79-b601-48d7-bce4-df9976c5529e")> 
+<Assembly: Guid("a11a4472-14ce-4629-bb13-7a0f215dba5c")> 
 
 ' Version information for an assembly consists of the following four values:
 '

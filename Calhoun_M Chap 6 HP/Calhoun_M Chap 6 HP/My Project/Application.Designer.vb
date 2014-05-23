@@ -32,7 +32,12 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Calhoun_M_Chap_4._3_EX.CoffeeOrderCalculator
+            Me.MainForm = Global.Calhoun_M_Chap_6_HP.Main
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+        Protected Overrides Sub OnCreateSplashScreen()
+            Me.SplashScreen = Global.Calhoun_M_Chap_6_HP.SplashScreen1
         End Sub
     End Class
 End Namespace
